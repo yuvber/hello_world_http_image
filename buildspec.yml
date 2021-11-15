@@ -4,7 +4,6 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - mvn clean install
       - echo Logging in to Amazon ECR...
       - aws --version
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
@@ -27,6 +26,4 @@ phases:
       - printf '[{"name":"helloworld","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
       - cat imagedefinitions.json
 artifacts:
-    files: 
-     - imagedefinitions.json
-     - target/order-service.jar
+    files: imagedefinitions.json
