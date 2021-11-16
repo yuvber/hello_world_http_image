@@ -3,13 +3,13 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      docker: 18
+      docker: 19
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
       - aws --version
       - $(aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/c7l4l0y6)
-      - REPOSITORY_URI=public.ecr.aws/c7l4l0y6/test1
+      - REPOSITORY_URI=public.ecr.aws/c7l4l0y6/hello-world
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
